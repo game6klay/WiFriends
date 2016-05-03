@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.chirag.loginregister.UserAreaActivity">
+    tools:context="com.example.tejasshah.wifriends.UserAreaActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,7 +17,8 @@
         android:id="@+id/tvWelcomeMsg"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/colorBlueDark" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -64,7 +65,7 @@
         android:layout_alignEnd="@+id/etUsername" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Network"
         android:id="@+id/bAddNetwork"
@@ -72,10 +73,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/etEmail"
-        android:layout_alignEnd="@+id/etEmail" />
+        android:layout_alignEnd="@+id/etEmail"
+        android:background="@drawable/rounded_red_button"
+        android:layout_margin="5dp"
+        android:textColor="#fff"
+        android:textSize="16dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Modify Network"
         android:id="@+id/bModify"
@@ -83,10 +88,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/bAddNetwork"
-        android:layout_alignEnd="@+id/bAddNetwork" />
+        android:layout_alignEnd="@+id/bAddNetwork"
+        android:background="@drawable/rounded_red_button"
+        android:layout_margin="5dp"
+        android:textColor="#fff"
+        android:textSize="16dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="View Friends"
         android:id="@+id/bViewFriend"
@@ -94,7 +103,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/bModify"
-        android:layout_alignEnd="@+id/bModify" />
+        android:layout_alignEnd="@+id/bModify"
+        android:background="@drawable/rounded_red_button"
+        android:layout_margin="5dp"
+        android:textColor="#fff"
+        android:textSize="16dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -103,5 +116,9 @@
         android:id="@+id/bWiFi"
         android:layout_below="@+id/bViewFriend"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@drawable/rounded_red_button"
+        android:layout_margin="5dp"
+        android:textColor="#fff"
+        android:textSize="16dp" />
 </RelativeLayout>

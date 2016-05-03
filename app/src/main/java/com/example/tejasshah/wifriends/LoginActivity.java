@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,41 +53,52 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String username = etUsername.getText().toString();
                 final String password = etPassword.getText().toString();
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean( "success");
-                            if(success){
-                                Toast.makeText(getBaseContext(),"Logged In Successfully",Toast.LENGTH_SHORT).show();
-                                String name = jsonResponse.getString("name");
-                                String email = jsonResponse.getString("email");
-                                System.out.println(email);
-                                Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
-                                intent.putExtra("name",name);
-                                intent.putExtra("username",username);
-                                intent.putExtra("email",email);
-                                LoginActivity.this.startActivity(intent);
+                ErrorDialogue ed = new ErrorDialogue();
+                if (username.isEmpty()){
+                    ed.showErrorText("Please Enter a UserName",LoginActivity.this);
+                }
+                else if(password.isEmpty()){
+                    ed.showErrorText("Please Enter a Password", LoginActivity.this);
+                }
+                else {
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean( "success");
+                                if(success){
+                                    Toast.makeText(getBaseContext(),"Logged In Successfully",Toast.LENGTH_SHORT).show();
+                                    String name = jsonResponse.getString("name");
+                                    String email = jsonResponse.getString("email");
+                                    System.out.println(email);
+                                    Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
+                                    intent.putExtra("name",name);
+                                    intent.putExtra("username",username);
+                                    intent.putExtra("email",email);
+                                    startActivity(intent);
+                                    finish();
 
 
-                            }else{
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage("Login Failed")
-                                        .setNegativeButton("Retry",null)
-                                        .create()
-                                        .show();
+                                }else{
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                    builder.setMessage("Login Failed")
+                                            .setNegativeButton("Retry",null)
+                                            .create()
+                                            .show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
+
                         }
+                    };
+                    LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+                    queue.add(loginRequest);
+                }
 
-
-                    }
-                };
-                LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-                queue.add(loginRequest);
 
             }
         });
