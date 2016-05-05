@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 if (success) {
                                     Toast.makeText(getBaseContext(), "User Registered Successfully", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                    RegisterActivity.this.startActivity(intent);
+                                    startActivity(intent);
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                     builder.setMessage("Username Unavailable")
