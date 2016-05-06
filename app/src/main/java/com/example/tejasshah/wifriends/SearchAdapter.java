@@ -57,10 +57,12 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
         }
 
         TextView nameTxt=(TextView) convertView.findViewById(R.id.tvFriendName);
-        ImageView img=(ImageView) convertView.findViewById(R.id.imageFriend);
+        TextView tvUserName = (TextView) convertView.findViewById(R.id.tvFriendUserName);
+        ImageView img=(ImageView) convertView.findViewById(R.id.imgFriend);
 
         //SET DATA TO THEM
         nameTxt.setText(friends.get(pos).getFriendName());
+        tvUserName.setText(friends.get(pos).getUsername());
         img.setImageResource(friends.get(pos).getImg());
 
         return convertView;

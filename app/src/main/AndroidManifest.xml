@@ -16,13 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity android:name=".LoginActivity"
             android:screenOrientation="portrait"
@@ -33,12 +26,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".UserAreaActivity" />
         <activity android:name=".AddNetworkActivity" />
         <activity android:name=".ModifyNetworkActivity" />
@@ -55,7 +47,10 @@
         <activity android:name=".SearchFriendsActivity" />
         <activity android:name=".ViewFriendsActivity" />
         <activity android:name=".RemoveItemActivity" />
-        <activity android:name=".ViewWiFiActivity"></activity>
+        <activity android:name=".ViewWiFiActivity" />
+        <activity android:name=".MyFriendsActivity"
+            android:label="@string/title_activity_my_friends"
+            ></activity>
     </application>
 
 </manifest>

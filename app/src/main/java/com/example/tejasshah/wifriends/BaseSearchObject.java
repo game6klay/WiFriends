@@ -17,11 +17,6 @@ public class BaseSearchObject {
         this.img = img;
         this.username = userName;
 
-
-        //ImageView lblPic = new ImageView(this);
-        //int resID = getResources().getIdentifier(pic, "drawable", getPackageName());
-        //lblPic.setImageResource(resID);
-        //this.addFriendButton = addFriendButton;
     }
 
     public String getFriendName(){

@@ -42,6 +42,7 @@ public class Networks implements Parcelable{
         this.capability = Capability;
         this.level = Level;
     }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(ssid);

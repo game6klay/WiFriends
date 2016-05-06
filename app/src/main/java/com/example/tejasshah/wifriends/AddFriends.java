@@ -57,8 +57,13 @@ public class AddFriends extends AppCompatActivity {
         viewFriends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddFriends.this, ViewFriendsActivity.class);
-                AddFriends.this.startActivity(intent);
+                Intent i = new Intent(AddFriends.this,MyFriendsActivity.class);
+                i.putExtra("name", name);
+                i.putExtra("username", username);
+                i.putExtra("email", email);
+                startActivity(i);
+               // Intent intent = new Intent(AddFriends.this, ViewFriendsActivity.class);
+               // AddFriends.this.startActivity(intent);
             }
 
 
@@ -68,9 +73,9 @@ public class AddFriends extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddFriends.this, UserAreaActivity.class);
-                intent.putExtra("name", "Tejas");
-                intent.putExtra("username", "ts2911");
-                intent.putExtra("email", "tejasshah@nyu.edu");
+                intent.putExtra("name", name);
+                intent.putExtra("username", username);
+                intent.putExtra("email", email);
                 AddFriends.this.startActivity(intent);
             }
         });

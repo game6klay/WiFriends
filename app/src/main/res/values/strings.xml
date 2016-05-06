@@ -4,4 +4,7 @@
     <string name="title_activity_check_wifi_network">CheckWifiNetworkActivity</string>
     <string name="contact">Search contact</string>
     <string name="connections">Your Connections on WiFriends</string>
+    <string name="title_activity_my_friends">MyFriendsActivity</string>
+    <string name="myFriendsTitle">My Friends</string>
+    <string name="searchFriend">Search Friend...</string>
 </resources>

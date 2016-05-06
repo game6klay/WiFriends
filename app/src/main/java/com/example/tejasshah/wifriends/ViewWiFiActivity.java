@@ -118,8 +118,5 @@ public class ViewWiFiActivity extends AppCompatActivity {
 
     }
 
-
-
-
 }
 
