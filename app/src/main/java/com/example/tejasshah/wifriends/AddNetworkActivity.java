@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +38,7 @@ public class AddNetworkActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String wname = etNetworkName.getText().toString();
                 final String wpass = etNetworkPassword.getText().toString();
+                String epass  = Base64.encodeToString(wpass.getBytes(), Base64.DEFAULT);
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -63,7 +65,7 @@ public class AddNetworkActivity extends AppCompatActivity {
                         }
                     }
                 };
-                AddNetwork addNetwork = new AddNetwork(username, wname,wpass, responseListener);
+                AddNetwork addNetwork = new AddNetwork(username, wname,epass, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(AddNetworkActivity.this);
                 queue.add(addNetwork);
 

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,18 +32,19 @@ public class ModifyNetworkActivity extends AppCompatActivity {
         //final String wid = intent.getStringExtra("username");
         final String wname = intent.getStringExtra("wname");
         final String wpass = intent.getStringExtra("wpass");
-
+        String epass = new String(Base64.decode(wpass,Base64.DEFAULT));
         final EditText etWName = ( EditText) findViewById(R.id.etWName);
         final EditText etWPass = ( EditText) findViewById(R.id.etWPass);
 
         etWName.setText(wname);
-        etWPass.setText(wpass);
+        etWPass.setText(epass);
 
         bUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String wname1 = etWName.getText().toString();
                 final String wpass1 = etWPass.getText().toString();
+                String epass1 = Base64.encodeToString(wpass1.getBytes(), Base64.DEFAULT);
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -69,7 +71,7 @@ public class ModifyNetworkActivity extends AppCompatActivity {
                         }
                     }
                 };
-                UpdateNetwork updateNetwork = new UpdateNetwork(username, wname1, wpass1, responseListener);
+                UpdateNetwork updateNetwork = new UpdateNetwork(username, wname1, epass1, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(ModifyNetworkActivity.this);
                 queue.add(updateNetwork);
 

@@ -1,35 +1,34 @@
 package com.example.tejasshah.wifriends;
 
         import android.content.BroadcastReceiver;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.content.IntentFilter;
-        import android.net.wifi.ScanResult;
-        import android.net.wifi.WifiConfiguration;
-        import android.net.wifi.WifiManager;
-        import android.opengl.Visibility;
-        import android.os.Bundle;
-        import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiManager;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+        import android.util.Base64;
         import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.Button;
-        import android.widget.ListView;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.example.tejasshah.wifriends.models.Networks;
+import com.example.tejasshah.wifriends.models.Networks;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewWiFiActivity extends AppCompatActivity {
     private ListView lvNetworks;
     WifiManager wifiManager;
     WifiReceiver wifiRec = new WifiReceiver();
     List<Networks> NetworkAvail = new ArrayList<Networks>();
-    String wname,wpass;
+    String wname,wpass,epass;
     TextView tvwifiStat;
 
 
@@ -47,7 +46,8 @@ public class ViewWiFiActivity extends AppCompatActivity {
         final String name = intent.getStringExtra("name");
         final String wid = intent.getStringExtra("username");
         wname = intent.getStringExtra("wname");
-        wpass = intent.getStringExtra("wpass");
+        epass = intent.getStringExtra("wpass");
+        wpass = Base64.encodeToString(epass.getBytes(), Base64.DEFAULT);
         final String name1 = intent.getStringExtra("name1");
 
 
