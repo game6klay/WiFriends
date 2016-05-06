@@ -22,20 +22,57 @@ import java.util.List;
  */
 public class MyFriendsAdapter extends ArrayAdapter<Friends> implements Filterable{
     Context c;
-    List<Friends> fList;
-    List<Friends> orig_fList;
-    private Filter friendsFilter;
+    ArrayList<Friends> friends;
+    ArrayList<Friends> filterList;
+    CustomFilter filter;
 
 
-    public MyFriendsAdapter(Context context, List<Friends> friends){
+
+    public MyFriendsAdapter(Context context, ArrayList<Friends> friends){
         super(context,R.layout.view_myfriends_row,friends);
         this.c = context;
-        this.fList = friends;
-        this.orig_fList = friends;
+        this.friends = friends;
+        this.filterList = friends;
+    }
+
+    @Override
+    public int getCount() {
+        return super.getCount();
+    }
+
+    @Override
+    public Friends getItem(int position) {
+        return super.getItem(position);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+       /* ViewHolder holder = null;
+        if(convertView == null){
+            LayoutInflater vi = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = vi.inflate(R.layout.view_myfriends_row, null);
+            holder  = new ViewHolder();
+            holder.nameTxt = (TextView) convertView.findViewById(R.id.tv_FriendName);
+            holder.img = (ImageView) convertView.findViewById(R.id.imgFriend);
+            holder.userName =(TextView) convertView.findViewById(R.id.tv_FriendUserName);
+            holder.btnRmvFriend = (Button)convertView.findViewById(R.id.btnRemoveFriend);
+            convertView.setTag(holder);
+
+        }else {
+            holder=(ViewHolder)convertView.getTag();
+        }
+        Friends f = filterList.get(position);
+        holder.nameTxt.setText(f.getFriendName());
+        holder.userName.setText(f.getUsername());
+        holder.img.setImageResource(f.getImg());
+        holder.btnRmvFriend.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //Snackbar.make(,"Code for Remove Friends Needed",Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        return convertView;*/
+
         LayoutInflater listFriends_view = LayoutInflater.from(getContext());
         final View customView = listFriends_view.inflate(R.layout.view_myfriends_row,null);
         final Friends friends = getItem(position);
@@ -62,42 +99,54 @@ public class MyFriendsAdapter extends ArrayAdapter<Friends> implements Filterabl
         return customView;
     }
 
+   /* private static class ViewHolder {
+        public TextView nameTxt;
+        public TextView userName;
+        public ImageView img;
+        public Button btnRmvFriend;
+
+    }*/
+
     @Override
     public Filter getFilter() {
-        if(friendsFilter == null)
-            friendsFilter = new MyFriendsFilter();
-        return friendsFilter;
+        if(filter == null){
+            filter = new CustomFilter();
+        }
+        return filter;
+
     }
 
-    private class MyFriendsFilter extends Filter{
+
+    class CustomFilter extends Filter{
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+
             FilterResults results = new FilterResults();
-            if(constraint == null || constraint.length() == 0){
-                results.values = orig_fList;
-                results.count = orig_fList.size();
-            }else {
-                List<Friends> filter_fList = new ArrayList<Friends>();
-                for(Friends f: fList){
-                    if(f.getFriendName().toLowerCase().startsWith(constraint.toString().toLowerCase()))
-                        filter_fList.add(f);
+            if(constraint != null && constraint.length() > 0){
+                constraint = constraint.toString().toUpperCase();
+                ArrayList<Friends> filters = new ArrayList<Friends>();
+                for(int i =0; i<filterList.size();i++){
+                    if(filterList.get(i).getFriendName().toUpperCase().contains(constraint)){
+                        Friends f = new Friends(filterList.get(i).getFriendName(),filterList.get(i).getImg(),filterList.get(i).getUsername());
+                        filters.add(f);
+                    }
                 }
-                results.values = filter_fList;
-                results.count = filter_fList.size();
+                results.count = filters.size();
+                results.values = filters;
+            }else {
+                results.count = filterList.size();
+                results.values = filterList;
             }
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            if(results.count == 0)
-                notifyDataSetInvalidated();
-            else {
-                fList = (List<Friends>)results.values;
-                notifyDataSetChanged();
-            }
+            friends = (ArrayList<Friends>)results.values;
+            notifyDataSetChanged();
 
         }
     }
+
 }
 

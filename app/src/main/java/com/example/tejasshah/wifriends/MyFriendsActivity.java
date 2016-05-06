@@ -45,9 +45,9 @@ public class MyFriendsActivity extends AppCompatActivity {
     EditText etSearchFriend;
     ListView lvMyFriends;
     String username,email,name;
-    List<Friends> friendsList;
-    ArrayAdapter adapt_myFriends;
+    ArrayList<Friends> friendsList;
     FloatingActionButton fab;
+    private static MyFriendsAdapter adapt_myFriends;
 
 
     @Override
@@ -76,12 +76,31 @@ public class MyFriendsActivity extends AppCompatActivity {
 
         etSearchFriend = (EditText)findViewById(R.id.etSearchFriend);
         lvMyFriends = (ListView)findViewById(R.id.lvMyFriends);
+      /*  etSearchFriend.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapt_myFriends.getFilter().filter(s);
+                Snackbar.make(getCurrentFocus(),"Code for Remove Friends Needed",Snackbar.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });*/
+
 
     }
 
-    class LoadFriends extends AsyncTask<String,Void,List<Friends>>{
+    class LoadFriends extends AsyncTask<String,Void,ArrayList<Friends>>{
         @Override
-        protected List<Friends> doInBackground(String... params) {
+        protected ArrayList<Friends> doInBackground(String... params) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
 
@@ -156,27 +175,12 @@ public class MyFriendsActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(final List<Friends> friendses) {
+        protected void onPostExecute(final ArrayList<Friends> friendses) {
             super.onPostExecute(friendses);
-            adapt_myFriends = new MyFriendsAdapter(MyFriendsActivity.this,friendses);
+            adapt_myFriends= new MyFriendsAdapter(MyFriendsActivity.this,friendses);
             lvMyFriends.setAdapter(adapt_myFriends);
             lvMyFriends.setTextFilterEnabled(true);
-            etSearchFriend.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                   adapt_myFriends.getFilter().filter(s.toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
             lvMyFriends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
