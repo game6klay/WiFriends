@@ -1,10 +1,10 @@
 package com.example.tejasshah.wifriends;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
                 final String name = etName.getText().toString();
                 final String username = etUsername.getText().toString();
                 final String password = etPassword.getText().toString();
+                String p = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
                 final String email = etEmail.getText().toString();
                 ErrorDialogue ed = new ErrorDialogue();
                 if(name.isEmpty()){
@@ -76,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     };
 
-                    RegisterRequest registerRequest = new RegisterRequest(name, email, username, password, responseListener);
+                    RegisterRequest registerRequest = new RegisterRequest(name, email, username, p, responseListener);
 
                     RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                     queue.add(registerRequest);

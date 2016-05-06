@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String username = etUsername.getText().toString();
                 final String password = etPassword.getText().toString();
+
+                String p = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
                 ErrorDialogue ed = new ErrorDialogue();
                 if (username.isEmpty()){
                     ed.showErrorText("Please Enter a UserName",LoginActivity.this);
@@ -91,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
                     };
-                    LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
+                    LoginRequest loginRequest = new LoginRequest(username, p, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                     queue.add(loginRequest);
                 }
