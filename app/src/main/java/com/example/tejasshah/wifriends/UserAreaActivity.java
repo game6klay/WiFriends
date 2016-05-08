@@ -28,7 +28,7 @@ import org.json.JSONObject;
 
 public class UserAreaActivity extends AppCompatActivity {
     Button bAddNetwork;
-    Button bModify,bWiFi;
+    Button bModify,bWiFi,bLogout;
     android.support.v7.app.ActionBar actionBar;
     String name,username,email;
 
@@ -78,6 +78,17 @@ public class UserAreaActivity extends AppCompatActivity {
         etEmail.setText(email);
         bWiFi = (Button)findViewById(R.id.bWiFi);
         bAddNetwork = (Button)findViewById(R.id.bAddNetwork);
+        bLogout = (Button)findViewById(R.id.bLogout);
+        bLogout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(UserAreaActivity.this, LoginActivity.class);
+                UserAreaActivity.this.startActivity(i);
+
+            }
+        });
+
+
         bAddNetwork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
