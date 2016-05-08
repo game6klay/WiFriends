@@ -7,4 +7,5 @@
     <string name="title_activity_my_friends">MyFriendsActivity</string>
     <string name="myFriendsTitle">My Friends</string>
     <string name="searchFriend">Search Friend...</string>
+    <string name="facebook_app_id">474328969422256</string>
 </resources>
