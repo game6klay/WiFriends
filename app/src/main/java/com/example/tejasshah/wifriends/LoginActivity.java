@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                                     String fname = object.getString("name");
                                     String email = object.getString("email");
                                     Log.v("Email = ", " " + email);
-                                    Toast.makeText(getApplicationContext(), "Name " + fname, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Welcome " + fname, Toast.LENGTH_LONG).show();
                                     Intent i = new Intent(LoginActivity.this,UserAreaActivity.class);
                                     i.putExtra("name", fname);
                                     i.putExtra("username", fname);
