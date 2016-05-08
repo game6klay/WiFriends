@@ -19,10 +19,12 @@ import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
     Button bRegister;
+    Button bCancel;
     EditText etUsername;
     EditText etPassword;
     EditText etName;
     EditText etEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,16 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = ( EditText) findViewById(R.id.etUsername);
 
         bRegister = (Button) findViewById(R.id.bRegister);
+        bCancel = (Button) findViewById(R.id.button);
+
+        bCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+                RegisterActivity.this.startActivity(i);
+
+            }
+        });
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
