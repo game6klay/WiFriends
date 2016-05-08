@@ -91,6 +91,7 @@
             android:layout_below="@+id/backToProfileFromSearch"
             android:textColor="#323232"
             android:textSize="17dp"
+            android:textStyle="bold"
             android:layout_marginBottom="30dp"
             android:background="@drawable/rounded_yellow_button"
             android:layout_alignParentLeft="true"
