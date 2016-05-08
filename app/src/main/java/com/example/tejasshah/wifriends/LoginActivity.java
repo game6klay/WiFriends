@@ -20,6 +20,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
@@ -154,22 +156,39 @@ public class LoginActivity extends AppCompatActivity {
         login_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult login_result) {
-                Log.d("debug", "Success*****************************");
-                Log.d("debug", "Access Token  : " + login_result.getAccessToken().getToken());
-                Log.d("debug", "User id: " + login_result.getAccessToken().getUserId());
-                System.out.println("HELLO");
-                System.out.println(login_result.getAccessToken());
-                AccessToken at = login_result.getAccessToken();
-                Profile p = Profile.getCurrentProfile();
-                String fname = p.getName();
-                String email = fname.substring(1,6)  +"@gmail.com";
-                String uname = p.getName();
-                if (uname == null) uname = "chg1234" ;
-                Intent i = new Intent(LoginActivity.this,UserAreaActivity.class);
-                i.putExtra("name", fname);
-                i.putExtra("username", uname);
-                i.putExtra("email", email);
-                startActivity(i);
+                AccessToken accessToken = login_result.getAccessToken();
+                Profile profile = Profile.getCurrentProfile();
+                GraphRequest request = GraphRequest.newMeRequest(
+                        login_result.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+                                Log.v("LoginActivity Response ", response.toString());
+
+                                try {
+                                    String fname = object.getString("name");
+                                    String email = object.getString("email");
+                                    Log.v("Email = ", " " + email);
+                                    Toast.makeText(getApplicationContext(), "Name " + fname, Toast.LENGTH_LONG).show();
+                                    Intent i = new Intent(LoginActivity.this,UserAreaActivity.class);
+                                    i.putExtra("name", fname);
+                                    i.putExtra("username", fname);
+                                    i.putExtra("email", email);
+                                    startActivity(i);
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender, birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
 
             }
 
