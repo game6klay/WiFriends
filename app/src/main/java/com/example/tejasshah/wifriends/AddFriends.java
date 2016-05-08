@@ -27,6 +27,7 @@ public class AddFriends extends AppCompatActivity {
     Button searchFriends;
     Button viewFriends;
     Button backToProfileFromSearch;
+    Button bLogout;
     String username,email,name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,21 @@ public class AddFriends extends AppCompatActivity {
         searchFriends = (Button) findViewById(R.id.searchFriends);
         viewFriends = (Button) findViewById(R.id.viewFriend);
         backToProfileFromSearch = (Button) findViewById(R.id.backToProfileFromSearch);
+        bLogout = (Button) findViewById(R.id.bLogout);
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
         email = intent.getStringExtra("email");
         name = intent.getStringExtra("name");
+
+        bLogout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AddFriends.this, LoginActivity.class);
+                AddFriends.this.startActivity(i);
+
+            }
+        });
 
         searchFriends.setOnClickListener(new View.OnClickListener() {
             @Override
