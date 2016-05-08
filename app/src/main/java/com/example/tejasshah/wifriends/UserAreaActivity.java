@@ -28,7 +28,7 @@ import org.json.JSONObject;
 
 public class UserAreaActivity extends AppCompatActivity {
     Button bAddNetwork;
-    Button bModify,bWiFi,bLogout;
+    Button bModify,bWiFi,bLogout,bViewFriend;
     android.support.v7.app.ActionBar actionBar;
     String name,username,email;
 
@@ -104,9 +104,6 @@ public class UserAreaActivity extends AppCompatActivity {
         bModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("On Click inside");
-                // final String wname = etNetworkName.getText().toString();
-                // final String wpass = etNetworkPassword.getText().toString();
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -149,7 +146,7 @@ public class UserAreaActivity extends AppCompatActivity {
             }
         });
 
-        final Button bViewFriend = (Button)findViewById(R.id.bViewFriend);
+        bViewFriend = (Button)findViewById(R.id.bViewFriend);
         bViewFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,7 +237,6 @@ public class UserAreaActivity extends AppCompatActivity {
                             if(success){
                                 String name = jsonResponse.getString("name");
                                 String email = jsonResponse.getString("email");
-                                //String wid = jsonResponse.getString("wid");
                                 String wname = jsonResponse.getString("wname");
                                 String wpass = jsonResponse.getString("wpass");
                                 String name1 = jsonResponse.getString("name1");

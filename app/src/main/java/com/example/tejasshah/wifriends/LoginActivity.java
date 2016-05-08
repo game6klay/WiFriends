@@ -2,7 +2,11 @@ package com.example.tejasshah.wifriends;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -65,6 +69,18 @@ public class LoginActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
+                Boolean isInternetPresent = cd.isConnectingToInternet();
+                if(!isInternetPresent){
+                    Snackbar.make(getCurrentFocus(),"Please Connect to the Internet",Snackbar.LENGTH_LONG)
+                            .setAction("Settings", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent i = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                                    startActivity(i);
+                                }
+                            }).show();
+                }
                 final String username = etUsername.getText().toString();
                 final String password = etPassword.getText().toString();
 
@@ -86,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                     String name = jsonResponse.getString("name");
                                     String email = jsonResponse.getString("email");
                                     System.out.println(email);
-                                    Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, Home.class);
                                     intent.putExtra("name", name);
                                     intent.putExtra("username", username);
                                     intent.putExtra("email", email);
@@ -95,11 +111,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                 } else {
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+
+                                    Snackbar.make(getCurrentFocus(),"Login Failed",Snackbar.LENGTH_LONG).show();
+                                    /*AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                     builder.setMessage("Login Failed")
                                             .setNegativeButton("Retry",null)
                                             .create()
-                                            .show();
+                                            .show();*/
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.chirag.loginregister.AddNetworkActivity">
+    tools:context="com.example.tejasshah.wifriends.AddNetworkActivity">
 
     <EditText
         android:layout_width="wrap_content"
@@ -18,7 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Wi-FI Name" />
+        android:hint="Wi-FI Name"
+        android:textColorHint="@color/colorBlueDark" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -29,16 +30,21 @@
         android:layout_below="@+id/etNetworkName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Wi-Fi Password" />
+        android:hint="Wi-Fi Password"
+        android:textColorHint="@color/colorBlueDark" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:text="@string/btnSaveNetwork"
         android:id="@+id/bSaveNetwork"
         android:layout_below="@+id/etNetworkPassword"
         android:layout_alignRight="@+id/etNetworkPassword"
         android:layout_alignEnd="@+id/etNetworkPassword"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_blue_button"
+        android:textColor="#fff"
+        android:textSize="20sp" />
 </RelativeLayout>

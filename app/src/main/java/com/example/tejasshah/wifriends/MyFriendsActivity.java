@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -72,7 +74,7 @@ public class MyFriendsActivity extends AppCompatActivity {
 
 
 
-        new LoadFriends().execute("http://selvinphp.netau.net/MyFriends.php");
+
 
         etSearchFriend = (EditText)findViewById(R.id.etSearchFriend);
         lvMyFriends = (ListView)findViewById(R.id.lvMyFriends);
@@ -96,6 +98,26 @@ public class MyFriendsActivity extends AppCompatActivity {
         });*/
 
 
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
+        Boolean isInternetPresent = cd.isConnectingToInternet();
+        View v = findViewById(R.id.etSearchFriend);
+        if(!isInternetPresent){
+            Snackbar.make(v,"Unable to Load Friends \nPlease Connect to the Internet",Snackbar.LENGTH_LONG)
+                    .setAction("Settings", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                            startActivity(i);
+                        }
+                    }).show();
+        }else{
+            new LoadFriends().execute("http://selvinphp.netau.net/MyFriends.php");
+        }
+        super.onPostCreate(savedInstanceState);
     }
 
     class LoadFriends extends AsyncTask<String,Void,ArrayList<Friends>>{

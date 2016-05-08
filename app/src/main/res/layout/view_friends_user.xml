@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.chirag.loginregister.LoginActivity"
+    tools:context="com.example.tejasshah.wifriends.LoginActivity"
     android:background="@color/colorPrimary">
 
     <RelativeLayout
@@ -19,8 +19,8 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:id="@+id/relativeLayout"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true"
+        android:gravity="top|center_horizontal">
 
     <TextView
         android:layout_width="match_parent"
