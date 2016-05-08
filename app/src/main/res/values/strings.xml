@@ -8,4 +8,6 @@
     <string name="myFriendsTitle">My Friends</string>
     <string name="searchFriend">Search Friend...</string>
     <string name="facebook_app_id">474328969422256</string>
+    <string name="drawer_open">Open navigation</string>
+    <string name="drawer_close">Close navigation</string>
 </resources>
