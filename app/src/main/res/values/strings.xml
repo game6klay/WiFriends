@@ -29,7 +29,7 @@
 
     <string name="tvNoFriendsToShow">You have no Friends to Show !!</string>
     <string name="search_friends_title">Search Friends on WiFriends</string>
-
+    <string name="title_activity_view_wifi">Available Network</string>
 
 
 </resources>

@@ -56,7 +56,9 @@
         <activity android:name=".SearchFriendsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ViewFriendsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".RemoveItemActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ViewWiFiActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ViewWiFiActivity"
+            android:label="@string/title_activity_view_wifi"
+            android:screenOrientation="portrait"/>
         <activity android:name=".MyFriendsActivity" android:screenOrientation="portrait"
             android:label="@string/title_activity_my_friends"
             android:theme="@style/AppTheme.NoActionBar"/>

@@ -37,12 +37,13 @@ public class Networks implements Parcelable{
     }
 
 
-    public Networks(String SSID, String BSSID,String Capability,Integer Level,String pass){
+    public Networks(String SSID, String BSSID,String Capability,Integer Level,String pass,String ownerName){
         this.ssid = SSID;
         this.bssid = BSSID;
         this.capability = Capability;
         this.level = Level;
         this.pass = pass;
+        this.ownerName = ownerName;
     }
 
     public Networks(String SSID, String BSSID,String Capability,Integer Level){

@@ -1,11 +1,16 @@
 package com.example.tejasshah.wifriends;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
@@ -16,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +44,7 @@ public class ViewWiFiActivity extends AppCompatActivity {
     String wname,wpass,epass;
     TextView tvwifiStat;
     JSONArray jsonArray;
-
+    AlertDialog.Builder builder1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +77,7 @@ public class ViewWiFiActivity extends AppCompatActivity {
         lvNetworks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("Decrypt :"+ epass + " to " + wpass);
-                Networks netObj = NetworkAvail.get(position);
+                final Networks netObj = NetworkAvail.get(position);
                 String encrypPass = netObj.getPass();
                 String pass = new String(Base64.decode(encrypPass,Base64.DEFAULT));
                 WifiConfiguration wc = new WifiConfiguration();
@@ -85,9 +90,20 @@ public class ViewWiFiActivity extends AppCompatActivity {
                 wifiManager.enableNetwork(netid, true);
                 wifiManager.reconnect();
 
+                ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+                if (mWifi.isConnected()) {
+                    WifiManager wifiManager = (WifiManager) getSystemService (Context.WIFI_SERVICE);
+                    WifiInfo info = wifiManager.getConnectionInfo ();
+                    info.getBSSID ();
+                    if(wc.SSID.equals(info.getBSSID())){
+                        Snackbar.make(getCurrentFocus(),"Wifi Connected Successfully",Snackbar.LENGTH_LONG).show();
+                    }
+                }
+
             }
         });
-
 
     }
 
@@ -103,7 +119,7 @@ public class ViewWiFiActivity extends AppCompatActivity {
             for(ScanResult result: scanResults){
                 for (Networks networks : FriendsWifi){
                     if(!result.SSID.isEmpty() && result.SSID.equals(networks.getSsid())){
-                        Networks netObj = new Networks(result.SSID,result.BSSID,result.capabilities,result.level,networks.getPass());
+                        Networks netObj = new Networks(result.SSID,result.BSSID,result.capabilities,result.level,networks.getPass(),networks.getOwnerName());
                         NetworkAvail.add(netObj);
                     }
                 }
@@ -111,7 +127,7 @@ public class ViewWiFiActivity extends AppCompatActivity {
 
             if(NetworkAvail.size() > 0)
             {
-                ArrayAdapter<Networks> networkAdp = new ArrayAdapter<Networks>(getBaseContext(), android.R.layout.simple_list_item_2, android.R.id.text1,NetworkAvail){
+              /*  ArrayAdapter<Networks> networkAdp = new ArrayAdapter<Networks>(getBaseContext(), android.R.layout.simple_list_item_2, android.R.id.text1,NetworkAvail){
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view =  super.getView(position, convertView, parent);
@@ -125,8 +141,10 @@ public class ViewWiFiActivity extends AppCompatActivity {
                     return view;
                 }
             };
+                lvNetworks.setAdapter(networkAdp);*/
 
-                lvNetworks.setAdapter(networkAdp);
+                ListAdapter listAdapter = new ViewWifi_Adapter(getBaseContext(),NetworkAvail);
+                lvNetworks.setAdapter(listAdapter);
 
                 tvwifiStat.setVisibility(View.GONE);
             }
