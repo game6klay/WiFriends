@@ -100,6 +100,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements OnItemCl
         try {
             jArr = new JSONArray(respsoneString);
             BaseSearchObject p;
+
             for(int i=0;i<jArr.length();i++)
             {
                 JSONObject jObj = jArr.getJSONObject(i);

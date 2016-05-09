@@ -45,6 +45,8 @@ public class SearchAdapter extends BaseAdapter implements Filterable {
         // TODO Auto-generated method stub
         return friends.indexOf(getItem(pos));
     }
+
+
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub

@@ -23,7 +23,7 @@
         android:textColor="@color/colorBlueDark" />
 
     <SearchView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sv_MyFriends"
         android:layout_below="@+id/tvMyFriendsTitle"
@@ -35,5 +35,20 @@
         android:id="@+id/lvMyFriends"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/sv_MyFriends" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tvNoFriendsToShow"
+        android:id="@+id/tvNoFriendsToShow"
+        android:layout_below="@+id/tvMyFriendsTitle"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/tvMyFriendsTitle"
+        android:layout_alignEnd="@+id/sv_MyFriends"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@color/colorBlueDark"
+        android:textSize="28dp"
+        android:visibility="gone" />
 
 </RelativeLayout>

@@ -60,7 +60,8 @@
         <activity android:name=".ViewWiFiActivity" />
         <activity
             android:name=".MyFriendsActivity"
-            android:label="@string/title_activity_my_friends" />
+            android:label="@string/title_activity_my_friends"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
