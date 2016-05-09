@@ -433,7 +433,11 @@ public class MyFriendsActivity extends AppCompatActivity implements NavigationVi
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.action_about){
-            return true;
+            Intent i = new Intent(MyFriendsActivity.this,About.class);
+            i.putExtra("name", name);
+            i.putExtra("username", username);
+            i.putExtra("email", email);
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);

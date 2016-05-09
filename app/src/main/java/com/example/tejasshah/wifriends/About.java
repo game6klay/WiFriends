@@ -1,15 +1,13 @@
 package com.example.tejasshah.wifriends;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,17 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -40,22 +36,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class Home extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class About extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     FloatingActionButton fab;
     DrawerLayout drawer;
     NavigationView navigationView;
-
-    private Button btnAddNetwork,btnModifyNetwork,btnAddFriends,btnMyFriends;
-    private TextView tvWelcome;
     String name,username,email;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_about);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -64,7 +53,7 @@ public class Home extends AppCompatActivity
         username = intent.getStringExtra("username");
         email = intent.getStringExtra("email");
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,7 +74,7 @@ public class Home extends AppCompatActivity
                     public void onResponse(String response) {
                         try {
 
-                            Intent i = new Intent(Home.this,ViewWiFiActivity.class);
+                            Intent i = new Intent(About.this,ViewWiFiActivity.class);
                             i.putExtra("jsonResponse",response);
                             i.putExtra("name",name);
                             i.putExtra("username",username);
@@ -98,11 +87,10 @@ public class Home extends AppCompatActivity
                     }
                 };
                 ViewWiFi vw = new ViewWiFi(username,email, name, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(Home.this);
+                RequestQueue queue = Volley.newRequestQueue(About.this);
                 queue.add(vw);
             }
         });
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -116,96 +104,6 @@ public class Home extends AppCompatActivity
         TextView tvUser_Email = (TextView) headerLayout.findViewById(R.id.tvEmail_Id);
         tvUser_Email.setText(email);
         tvUser_Name.setText(name);
-
-
-
-        btnAddNetwork = (Button) findViewById(R.id.btnAddNetwork);
-        btnModifyNetwork = (Button) findViewById(R.id.btnModifyNetwork);
-        btnAddFriends = (Button) findViewById(R.id.btnAddFriends);
-        btnMyFriends = (Button) findViewById(R.id.btnMyFriends);
-        tvWelcome = (TextView) findViewById(R.id.tvWelcomeTitle);
-
-        tvWelcome.setText("Welcome "+name);
-
-
-        btnAddNetwork.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addNetworkIntent = new Intent(Home.this, AddNetworkActivity.class);
-                addNetworkIntent.putExtra("username", username);
-                addNetworkIntent.putExtra("name", name);
-                addNetworkIntent.putExtra("email", email);
-                startActivity(addNetworkIntent);
-            }
-        });
-
-        btnModifyNetwork.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
-                Boolean isInternetPresent = cd.isConnectingToInternet();
-                if(!isInternetPresent){
-                    Snackbar.make(getCurrentFocus(),"Please Connect to the Internet",Snackbar.LENGTH_LONG)
-                            .setAction("Settings", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent i = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                                    startActivity(i);
-                                }
-                            }).show();
-                }else{
-                    modifyNetwork();
-                }
-
-            }
-        });
-
-        btnAddFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
-                Boolean isInternetPresent = cd.isConnectingToInternet();
-                if(!isInternetPresent){
-                    Snackbar.make(getCurrentFocus(),"Please Connect to the Internet",Snackbar.LENGTH_LONG)
-                            .setAction("Settings", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent i = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                                    startActivity(i);
-                                }
-                            }).show();
-                }else{
-                    new LoadData().execute("http://selvinphp.netau.net/ViewFriends.php");
-                }
-
-            }
-        });
-
-        btnMyFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
-                Boolean isInternetPresent = cd.isConnectingToInternet();
-                if(!isInternetPresent){
-                    Snackbar.make(getCurrentFocus(),"Please Connect to the Internet",Snackbar.LENGTH_LONG)
-                            .setAction("Settings", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent i = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                                    startActivity(i);
-                                }
-                            }).show();
-                }else{
-                    Intent i = new Intent(Home.this,MyFriendsActivity.class);
-                    i.putExtra("name", name);
-                    i.putExtra("username", username);
-                    i.putExtra("email", email);
-                    startActivity(i);
-                }
-
-            }
-        });
-
     }
 
     private void  modifyNetwork(){
@@ -222,7 +120,7 @@ public class Home extends AppCompatActivity
                         String wname = jsonResponse.getString("wname");
                         String wpass = jsonResponse.getString("wpass");
                         String username = jsonResponse.getString("username");
-                        Intent intent = new Intent(Home.this, ModifyNetworkActivity.class);
+                        Intent intent = new Intent(About.this, ModifyNetworkActivity.class);
                         intent.putExtra("name",name);
                         intent.putExtra("username",username);
                         intent.putExtra("email",email);
@@ -232,7 +130,7 @@ public class Home extends AppCompatActivity
                         startActivity(intent);
                     }else{
                         ErrorDialogue ed = new ErrorDialogue();
-                        ed.showErrorText("No Network Registered",Home.this);
+                        ed.showErrorText("No Network Registered",About.this);
 
                     }
                 } catch (JSONException e) {
@@ -241,7 +139,7 @@ public class Home extends AppCompatActivity
             }
         };
         ModifyNetwork modNetwork = new ModifyNetwork(username,email, name, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(Home.this);
+        RequestQueue queue = Volley.newRequestQueue(About.this);
         queue.add(modNetwork);
     }
 
@@ -314,7 +212,7 @@ public class Home extends AppCompatActivity
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Intent registerIntent = new Intent(Home.this, SearchFriendsActivity.class);
+            Intent registerIntent = new Intent(About.this, SearchFriendsActivity.class);
             registerIntent.putExtra("JSONdata",s);
             registerIntent.putExtra("name", name);
             registerIntent.putExtra("username", username);
@@ -323,7 +221,6 @@ public class Home extends AppCompatActivity
 
         }
     }
-
 
     @Override
     public void onBackPressed() {
@@ -350,26 +247,20 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-         if(id == R.id.action_about){
-            Intent i = new Intent(Home.this,About.class);
-             i.putExtra("name", name);
-             i.putExtra("username", username);
-             i.putExtra("email", email);
-             startActivity(i);
+        if(id == R.id.action_about){
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.icn_AddNetwork) {
 
-            Intent addNetworkIntent = new Intent(Home.this, AddNetworkActivity.class);
+            Intent addNetworkIntent = new Intent(About.this, AddNetworkActivity.class);
             addNetworkIntent.putExtra("username", username);
             addNetworkIntent.putExtra("name", name);
             addNetworkIntent.putExtra("email", email);
@@ -406,7 +297,7 @@ public class Home extends AppCompatActivity
                             }
                         }).show();
             }else{
-                Intent i = new Intent(Home.this,MyFriendsActivity.class);
+                Intent i = new Intent(About.this,MyFriendsActivity.class);
                 i.putExtra("name", name);
                 i.putExtra("username", username);
                 i.putExtra("email", email);
@@ -415,7 +306,7 @@ public class Home extends AppCompatActivity
         } else if (id == R.id.icn_myProfile) {
 
         } else if (id == R.id.icn_LogOut) {
-            Intent i = new Intent(Home.this, LoginActivity.class);
+            Intent i = new Intent(About.this, LoginActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
             finish();

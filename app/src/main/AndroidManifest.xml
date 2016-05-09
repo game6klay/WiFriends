@@ -13,15 +13,16 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:screenOrientation="portrait">
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".LoginActivity"
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize">
@@ -36,14 +37,23 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".RegisterActivity"
+        <activity
+            android:name=".RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".UserAreaActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".AddNetworkActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ModifyNetworkActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".AddFriends" android:screenOrientation="portrait">
+        <activity
+            android:name=".UserAreaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddNetworkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ModifyNetworkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddFriends"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchFriendActivity" />
@@ -53,24 +63,41 @@
             android:name="android.app.default_searchable"
             android:value=".SearchFriendActivity" />
 
-        <activity android:name=".SearchFriendsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ViewFriendsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".RemoveItemActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ViewWiFiActivity"
+        <activity
+            android:name=".SearchFriendsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewFriendsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RemoveItemActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewWiFiActivity"
             android:label="@string/title_activity_view_wifi"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MyFriendsActivity" android:screenOrientation="portrait"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyFriendsActivity"
             android:label="@string/title_activity_my_friends"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Home"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
-            <!--<intent-filter>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER"></category>
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
+        <activity
+            android:name=".About"
+            android:label="@string/title_activity_about"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
