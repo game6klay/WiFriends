@@ -83,7 +83,7 @@ public class ViewWiFiActivity extends AppCompatActivity {
         public void onReceive(Context c, Intent intent)
         {
             List<WifiConfiguration> results = wifiManager.getConfiguredNetworks();
-            Toast.makeText(getBaseContext(),String.valueOf(results.size()),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(),String.valueOf(results.size()),Toast.LENGTH_SHORT).show();
             final List<ScanResult> scanResults = wifiManager.getScanResults();
             Toast.makeText(getBaseContext(),String.valueOf(scanResults.size()),Toast.LENGTH_SHORT).show();
             unregisterReceiver(wifiRec);
@@ -102,6 +102,7 @@ public class ViewWiFiActivity extends AppCompatActivity {
                     Networks netObj = NetworkAvail.get(position);
                     TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                     TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+                    System.out.println("test"+text2);
 
                     text1.setText(netObj.getSsid());
                     text2.setText(netObj.getCapability());
