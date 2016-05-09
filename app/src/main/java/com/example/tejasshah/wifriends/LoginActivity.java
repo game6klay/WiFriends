@@ -1,5 +1,6 @@
 package com.example.tejasshah.wifriends;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -45,6 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         facebookSDKInitialize();
         setContentView(R.layout.activity_login);
 
+        if (isLogin()){
+            
+        }
         etPassword = (EditText) findViewById(R.id.etPassword);
         etUsername = (EditText) findViewById(R.id.etUsername);
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -135,6 +139,18 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public boolean isLogin() {
+        AccessToken accessToken = getAccessToken();
+        if (accessToken == null) {
+            return false;
+        }
+        return !accessToken.isExpired();
+    }
+
+    public AccessToken getAccessToken() {
+        return AccessToken.getCurrentAccessToken();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -185,13 +201,47 @@ public class LoginActivity extends AppCompatActivity {
                                 try {
                                     String fname = object.getString("name");
                                     String email = object.getString("email");
-                                    Log.v("Email = ", " " + email);
-                                    Toast.makeText(getApplicationContext(), "Welcome " + fname, Toast.LENGTH_LONG).show();
-                                    Intent i = new Intent(LoginActivity.this,Home.class);
-                                    i.putExtra("name", fname);
-                                    i.putExtra("username", fname);
-                                    i.putExtra("email", email);
-                                    startActivity(i);
+                                    String uname = object.getString("id");
+                                    Log.v("Email = ", " " + uname);
+                                    System.out.println("Email"+email);
+                                    System.out.println("id : "+uname);
+                                    //
+                                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            try {
+                                                JSONObject jsonResponse = new JSONObject(response);
+                                                boolean success = jsonResponse.getBoolean("success");
+
+                                                if (success) {
+                                                    Toast.makeText(getBaseContext(), "User Registered Successfully", Toast.LENGTH_SHORT).show();
+                                                    String name = jsonResponse.getString("name");
+                                                    String email = jsonResponse.getString("email");
+                                                    String username = jsonResponse.getString("username");
+                                                    Intent intent = new Intent(LoginActivity.this, Home.class);
+                                                    intent.putExtra("name", name);
+                                                    intent.putExtra("username", username);
+                                                    intent.putExtra("email", email);
+                                                    startActivity(intent);
+                                                } else {
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                                    builder.setMessage("Username Unavailable")
+                                                            .setNegativeButton("Retry", null)
+                                                            .create()
+                                                            .show();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    };
+
+                                    RegisterRequest registerRequest = new RegisterRequest(fname, email, uname, uname, responseListener);
+
+                                    RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+                                    queue.add(registerRequest);
+                                    //
+
 
 
                                 } catch (JSONException e) {
