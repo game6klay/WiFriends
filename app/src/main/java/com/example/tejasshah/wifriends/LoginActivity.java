@@ -1,9 +1,6 @@
 package com.example.tejasshah.wifriends;
 
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -112,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 } else {
 
-                                    Snackbar.make(getCurrentFocus(),"Login Failed",Snackbar.LENGTH_LONG).show();
+                                    Snackbar.make(getCurrentFocus(), "Login Failed", Snackbar.LENGTH_LONG).show();
                                     /*AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                     builder.setMessage("Login Failed")
                                             .setNegativeButton("Retry",null)
@@ -190,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                                     String email = object.getString("email");
                                     Log.v("Email = ", " " + email);
                                     Toast.makeText(getApplicationContext(), "Welcome " + fname, Toast.LENGTH_LONG).show();
-                                    Intent i = new Intent(LoginActivity.this,UserAreaActivity.class);
+                                    Intent i = new Intent(LoginActivity.this,Home.class);
                                     i.putExtra("name", fname);
                                     i.putExtra("username", fname);
                                     i.putExtra("email", email);
