@@ -46,9 +46,54 @@ public class LoginActivity extends AppCompatActivity {
         facebookSDKInitialize();
         setContentView(R.layout.activity_login);
 
-        if (isLogin()){
-            
-        }
+     /*   if (isLogin()){
+
+            AccessToken ac = getAccessToken();
+            final String userId = ac.getUserId();
+            System.out.println("test"+ userId);
+            //
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
+                        if (success) {
+                            Toast.makeText(getBaseContext(), "Logged In Successfully !!!", Toast.LENGTH_SHORT).show();
+                            String name = jsonResponse.getString("name");
+                            String email = jsonResponse.getString("email");
+                            System.out.println(email);
+                            Intent intent = new Intent(LoginActivity.this, Home.class);
+                            intent.putExtra("name", name);
+                            intent.putExtra("username", userId);
+                            intent.putExtra("email", email);
+                            startActivity(intent);
+                            finish();
+
+
+                        } else {
+
+                            Snackbar.make(getCurrentFocus(), "Login Failed", Snackbar.LENGTH_LONG).show();
+                                    /*AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                    builder.setMessage("Login Failed")
+                                            .setNegativeButton("Retry",null)
+                                            .create()
+                                            .show();*/ /*
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            };
+            FBRequest fb = new FBRequest(userId, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+            queue.add(fb);
+            //
+
+
+        } */
         etPassword = (EditText) findViewById(R.id.etPassword);
         etUsername = (EditText) findViewById(R.id.etUsername);
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
