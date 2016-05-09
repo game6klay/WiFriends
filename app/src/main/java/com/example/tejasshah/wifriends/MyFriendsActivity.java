@@ -51,7 +51,6 @@ import java.util.List;
 import java.util.Map;
 
 public class MyFriendsActivity extends AppCompatActivity {
-    EditText etSearchFriend;
     ListView lvMyFriends;
     static String username,email,name;
     ArrayList<Friends> friendsList;
@@ -80,31 +79,7 @@ public class MyFriendsActivity extends AppCompatActivity {
         });
 
 
-
-
-
-        etSearchFriend = (EditText)findViewById(R.id.etSearchFriend);
         lvMyFriends = (ListView)findViewById(R.id.lvMyFriends);
-
-      /*  etSearchFriend.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                adapt_myFriends.getFilter().filter(s);
-                Snackbar.make(getCurrentFocus(),"Code for Remove Friends Needed",Snackbar.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
-
 
     }
 
@@ -130,7 +105,7 @@ public class MyFriendsActivity extends AppCompatActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
         Boolean isInternetPresent = cd.isConnectingToInternet();
-        View v = findViewById(R.id.etSearchFriend);
+        final View v = findViewById(R.id.lvMyFriends);
         if(!isInternetPresent){
             Snackbar.make(v,"Unable to Load Friends \nPlease Connect to the Internet",Snackbar.LENGTH_LONG)
                     .setAction("Settings", new View.OnClickListener() {
@@ -165,7 +140,7 @@ public class MyFriendsActivity extends AppCompatActivity {
 
                         } else {
 
-                            Snackbar.make(getCurrentFocus(),"Failed to Add Friend",Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(v,"Failed to Add Friend",Snackbar.LENGTH_LONG).show();
                                     /*AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                     builder.setMessage("Login Failed")
                                             .setNegativeButton("Retry",null)
