@@ -47,7 +47,9 @@ public class ViewWiFiActivity extends AppCompatActivity {
         final String wid = intent.getStringExtra("username");
         wname = intent.getStringExtra("wname");
         epass = intent.getStringExtra("wpass");
-        wpass = Base64.encodeToString(epass.getBytes(), Base64.DEFAULT);
+        //wpass = Base64.encodeToString(epass.getBytes(), Base64.DEFAULT);
+        wpass = new String(Base64.decode(epass,Base64.DEFAULT));
+        System.out.println("Decrypt :"+ epass + " to " + wpass);
         final String name1 = intent.getStringExtra("name1");
 
 
@@ -57,6 +59,7 @@ public class ViewWiFiActivity extends AppCompatActivity {
         lvNetworks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("Decrypt :"+ epass + " to " + wpass);
                 Networks netObj = NetworkAvail.get(position);
 
                 WifiConfiguration wc = new WifiConfiguration();

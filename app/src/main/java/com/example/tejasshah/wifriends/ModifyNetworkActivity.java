@@ -54,7 +54,7 @@ public class ModifyNetworkActivity extends AppCompatActivity {
 
                             if (success) {
                                 Toast.makeText(getBaseContext(),"Network Details modified",Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(ModifyNetworkActivity.this, UserAreaActivity.class);
+                                Intent intent = new Intent(ModifyNetworkActivity.this, Home.class);
                                 intent.putExtra("name", name);
                                 intent.putExtra("username", username);
                                 intent.putExtra("email", email);
