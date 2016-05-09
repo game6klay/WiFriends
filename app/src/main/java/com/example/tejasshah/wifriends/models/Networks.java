@@ -9,10 +9,11 @@ import android.os.Parcelable;
  */
 public class Networks implements Parcelable{
 
-    private String ssid;
-    private String bssid;
-    private String capability;
+    private String ssid,pass,bssid,capability,ownerName;
+    //private String bssid;
+    //private String capability;
     private Integer level;
+
 
 
     /**
@@ -36,11 +37,26 @@ public class Networks implements Parcelable{
     }
 
 
+    public Networks(String SSID, String BSSID,String Capability,Integer Level,String pass){
+        this.ssid = SSID;
+        this.bssid = BSSID;
+        this.capability = Capability;
+        this.level = Level;
+        this.pass = pass;
+    }
+
     public Networks(String SSID, String BSSID,String Capability,Integer Level){
         this.ssid = SSID;
         this.bssid = BSSID;
         this.capability = Capability;
         this.level = Level;
+
+    }
+
+    public Networks(String SSID,String pass,String userName){
+        this.ssid = SSID;
+        this.pass = pass;
+        this.ownerName = userName;
     }
 
     @Override
@@ -61,4 +77,11 @@ public class Networks implements Parcelable{
     public String getBssid() {return bssid;}
     public String getCapability() {return capability;}
     public Integer getLevel(){ return level;}
+    public String getPass() {
+        return pass;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
 }

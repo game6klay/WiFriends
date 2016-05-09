@@ -18,7 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AddNetworkActivity extends AppCompatActivity {
-
+    Button bAddNetwork;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,7 @@ public class AddNetworkActivity extends AppCompatActivity {
         final EditText etNetworkName = (EditText)findViewById(R.id.etNetworkName);
         final EditText etNetworkPassword = (EditText)findViewById(R.id.etNetworkPassword);
 
-        final Button bAddNetwork = (Button) findViewById(R.id.bSaveNetwork);
+        bAddNetwork = (Button) findViewById(R.id.bSaveNetwork);
         Intent intent = getIntent();
         final String username = intent.getStringExtra("username");
         final String email = intent.getStringExtra("email");
@@ -48,7 +48,7 @@ public class AddNetworkActivity extends AppCompatActivity {
 
                             if(success){
                                 Toast.makeText(getBaseContext(),"Network Added Successfully",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(AddNetworkActivity.this, UserAreaActivity.class);
+                                Intent intent = new Intent(AddNetworkActivity.this, Home.class);
                                 intent.putExtra("name",name);
                                 intent.putExtra("username",username);
                                 intent.putExtra("email",email);

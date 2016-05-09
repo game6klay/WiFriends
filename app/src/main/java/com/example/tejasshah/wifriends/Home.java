@@ -24,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -83,8 +84,8 @@ public class Home extends AppCompatActivity
                     @Override
                     public void onResponse(String response) {
                         try {
-                            System.out.println(response);
-                            JSONObject jsonResponse = new JSONObject(response);
+                            //JSONArray jResponseArr = new JSONArray(response);
+                            /*JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             System.out.println(success);
                             if(success && jsonResponse.has("wname")){
@@ -104,14 +105,21 @@ public class Home extends AppCompatActivity
                                 startActivity(intent);
                             }else{
                                 Snackbar.make(getCurrentFocus(), "None of your Friends Wifi Found !!", Snackbar.LENGTH_LONG).show();
-                                /*AlertDialog.Builder builder = new AlertDialog.Builder(UserAreaActivity.this);
+                                *//*AlertDialog.Builder builder = new AlertDialog.Builder(UserAreaActivity.this);
                                 builder.setMessage("No WIFI Found for you !!")
                                         .setNegativeButton("Retry",null)
                                         .create()
-                                        .show();*/
-                            }
-                        } catch (JSONException e) {
+                                        .show();*//*
+                            }*/
+                            Intent i = new Intent(Home.this,ViewWiFiActivity.class);
+                            i.putExtra("jsonResponse",response);
+                            i.putExtra("name",name);
+                            i.putExtra("username",username);
+                            i.putExtra("email",email);
+                            startActivity(i);
+                        } catch (Exception e) {
                             e.printStackTrace();
+                            Snackbar.make(getCurrentFocus(), "Error trying to retrive your Friend's Wifi !!", Snackbar.LENGTH_LONG).show();
                         }
                     }
                 };

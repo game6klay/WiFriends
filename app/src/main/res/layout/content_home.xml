@@ -30,57 +30,52 @@
         android:layout_alignParentEnd="true">
 
         <Button
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="145dp"
+            android:layout_height="145dp"
             android:text="@string/btnAddNetwork"
             android:id="@+id/btnAddNetwork"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
             android:background="@drawable/ring_button_blue"
             android:textColor="#fff"
-            android:padding="5dp"
             android:textSize="22sp"
-            android:layout_margin="15dp" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
 
         <Button
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="145dp"
+            android:layout_height="145dp"
             android:text="@string/btnModifyNetwork"
             android:id="@+id/btnModifyNetwork"
             android:background="@drawable/ring_button_red"
             android:textColor="#fff"
-            android:padding="5dp"
             android:textSize="22sp"
             android:layout_below="@+id/btnAddNetwork"
             android:layout_alignParentStart="true"
-            android:layout_margin="15dp" />
+            android:layout_marginTop="10dp" />
 
         <Button
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="145dp"
+            android:layout_height="145dp"
             android:text="@string/btnAddFriends"
             android:id="@+id/btnAddFriends"
             android:background="@drawable/ring_button_red"
             android:textColor="#fff"
-            android:padding="5dp"
             android:textSize="22sp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_alignTop="@+id/btnAddNetwork"
-            android:layout_toEndOf="@+id/btnAddNetwork" />
+            android:layout_above="@+id/btnModifyNetwork"
+            android:layout_toEndOf="@+id/btnAddNetwork"
+            android:layout_marginLeft="10dp" />
 
         <Button
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="145dp"
+            android:layout_height="145dp"
             android:text="@string/btnMyFriends"
             android:id="@+id/btnMyFriends"
             android:background="@drawable/ring_button_blue"
             android:textColor="#fff"
-            android:padding="5dp"
             android:textSize="22sp"
-            android:layout_marginRight="15dp"
-            android:layout_alignTop="@+id/btnModifyNetwork"
-            android:layout_alignStart="@+id/btnAddFriends" />
+            android:layout_below="@+id/btnAddNetwork"
+            android:layout_toEndOf="@+id/btnAddNetwork"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp" />
     </RelativeLayout>
 
 </RelativeLayout>
