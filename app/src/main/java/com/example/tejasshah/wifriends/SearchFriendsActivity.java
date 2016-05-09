@@ -71,7 +71,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements OnItemCl
         //ADAPTER
             adapter=new SearchAdapter(this, getFriends());
             lv.setAdapter(adapter);
-
+            sv.setIconified(false);
             sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
                 @Override
@@ -136,15 +136,15 @@ public class SearchFriendsActivity extends AppCompatActivity implements OnItemCl
 
                                             if (success) {
                                                 Toast.makeText(getBaseContext(), "Friend created successfully!", Toast.LENGTH_LONG).show();
-                                                Intent intent = new Intent(SearchFriendsActivity.this, UserAreaActivity.class);
+                                                Intent intent = new Intent(SearchFriendsActivity.this, Home.class);
                                                 intent.putExtra("name", name);
                                                 intent.putExtra("username", username);
                                                 intent.putExtra("email", email);
-                                                SearchFriendsActivity.this.startActivity(intent);
+                                                startActivity(intent);
 
                                             } else {
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(SearchFriendsActivity.this);
-                                                builder.setMessage(friendUserName +" is already y Friend")
+                                                builder.setMessage(friendUserName +" is already your Friend")
                                                         .setNegativeButton("Retry", null)
                                                         .create()
                                                         .show();

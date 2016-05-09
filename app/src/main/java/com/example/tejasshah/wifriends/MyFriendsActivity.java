@@ -24,6 +24,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.tejasshah.wifriends.models.Friends;
 
 import org.json.JSONArray;
@@ -41,12 +46,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyFriendsActivity extends AppCompatActivity {
     EditText etSearchFriend;
     ListView lvMyFriends;
-    String username,email,name;
+    static String username,email,name;
     ArrayList<Friends> friendsList;
     FloatingActionButton fab;
     private static MyFriendsAdapter adapt_myFriends;
@@ -78,6 +85,7 @@ public class MyFriendsActivity extends AppCompatActivity {
 
         etSearchFriend = (EditText)findViewById(R.id.etSearchFriend);
         lvMyFriends = (ListView)findViewById(R.id.lvMyFriends);
+
       /*  etSearchFriend.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -100,6 +108,24 @@ public class MyFriendsActivity extends AppCompatActivity {
 
     }
 
+    private class FetchMyFriends extends StringRequest {
+        private static final String FETCH_FRIEND_URL = "http://selvinphp.netau.net/MyFriends.php";
+        private Map<String, String> params;
+
+        public FetchMyFriends( String username, Response.Listener<String> listener){
+            super (Request.Method.POST, FETCH_FRIEND_URL, listener, null);
+            params = new HashMap<>();
+            params.put("username",username);
+
+        }
+
+        @Override
+        public Map<String, String> getParams() {
+            return params;
+        }
+    }
+
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
@@ -115,7 +141,47 @@ public class MyFriendsActivity extends AppCompatActivity {
                         }
                     }).show();
         }else{
-            new LoadFriends().execute("http://selvinphp.netau.net/MyFriends.php");
+           // new LoadFriends().execute("http://selvinphp.netau.net/MyFriends.php");
+
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
+                        if (success) {
+                            //Toast.makeText(c, "Logged In Successfully !!!", Toast.LENGTH_SHORT).show();
+                            //String name = jsonResponse.getString("name");
+                            //String email = jsonResponse.getString("email");
+                            //System.out.println(email);
+                            //Intent intent = new Intent(LoginActivity.this, Home.class);
+                            //intent.putExtra("name", name);
+                            //intent.putExtra("username", username);
+                            //intent.putExtra("email", email);
+                            //startActivity(intent);
+                            //finish();
+                            //MyFriendsActivity myFriendsActivity = new MyFriendsActivity();
+                            //myFriendsActivity.getAdapt_myFriends().notifyDataSetChanged();
+
+                        } else {
+
+                            Snackbar.make(getCurrentFocus(),"Failed to Add Friend",Snackbar.LENGTH_LONG).show();
+                                    /*AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                    builder.setMessage("Login Failed")
+                                            .setNegativeButton("Retry",null)
+                                            .create()
+                                            .show();*/
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            };
+            FetchMyFriends fetchMyFriends = new FetchMyFriends(username, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+            queue.add(fetchMyFriends);
         }
         super.onPostCreate(savedInstanceState);
     }
@@ -199,10 +265,11 @@ public class MyFriendsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(final ArrayList<Friends> friendses) {
             super.onPostExecute(friendses);
-            adapt_myFriends= new MyFriendsAdapter(MyFriendsActivity.this,friendses);
-            lvMyFriends.setAdapter(adapt_myFriends);
+            if(friendses.size()>0){
+                adapt_myFriends= new MyFriendsAdapter(MyFriendsActivity.this,friendses);
+                lvMyFriends.setAdapter(adapt_myFriends);
+            }
             lvMyFriends.setTextFilterEnabled(true);
-
             lvMyFriends.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -289,5 +356,13 @@ public class MyFriendsActivity extends AppCompatActivity {
             MyFriendsActivity.this.startActivity(registerIntent);
 
         }
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static MyFriendsAdapter getAdapt_myFriends() {
+        return adapt_myFriends;
     }
 }
